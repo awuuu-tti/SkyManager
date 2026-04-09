@@ -44,6 +44,12 @@ http://127.0.0.1:5000
 - client@skymanager.local / Client123!
 
 ## Структура проекта
+- app.py — основной файл Flask-приложения
+- db.py — работа с Excel-файлом
+- templates — HTML-шаблоны
+- static — стили сайта
+- data — файл базы данных
+
 
 ```text
 skymanager/
