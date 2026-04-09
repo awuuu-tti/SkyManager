@@ -37,6 +37,8 @@ def e404(_): return render_template('error.html', title='Страница не �
 @app.errorhandler(500)
 def e500(_): return render_template('error.html', title='Техническая ошибка', text='Попробуйте еще раз позже.'), 500
 
+
+# Главная страница сайта
 @app.route('/')
 def home(): return render_template('home.html', flights=read_sheet('flights')[:5], cities=sorted({f['origin'] for f in read_sheet('flights')} | {f['destination'] for f in read_sheet('flights')}))
 
