@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 mb-4">
+  <h1 class="h4">Отчеты</h1>
+  <form class="row g-2 mb-3">
+    <div class="col-md-3"><label class="form-label">С даты</label><input class="form-control" type="date" name="start_date" value="{{ request.args.get('start_date','') }}"></div>
+    <div class="col-md-3"><label class="form-label">По дату</label><input class="form-control" type="date" name="end_date" value="{{ request.args.get('end_date','') }}"></div>
+    <div class="col-md-3 align-self-end"><button class="btn btn-primary">Сформировать</button></div>
+  </form>
+  <p><strong>Продано билетов:</strong> {{ rows|length }}</p>
+  <p><strong>Общая сумма:</strong> {{ total }} ₽</p>
+  <h2 class="h5">По категориям скидок</h2>
+  <ul>{% for k, v in by_discount.items() %}<li>{{ k }}: {{ v }}</li>{% endfor %}</ul>
+</div>
+<div class="card p-4">
+  <h2 class="h5">Загрузка рейсов</h2>
+  <table class="table table-bordered table-sm"><tr><th>Рейс</th><th>Маршрут</th><th>Загрузка</th></tr>{% for item in load %}<tr><td>{{ item.flight.flight_number }}</td><td>{{ item.flight.origin }} → {{ item.flight.destination }}</td><td>{{ item.load }}%</td></tr>{% endfor %}</table>
+</div>
+{% endblock %}

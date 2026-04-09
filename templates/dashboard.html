@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="card p-4">
+      <h2 class="h5">Мой профиль</h2>
+      <form method="post">
+        <label class="form-label">ФИО</label><input class="form-control mb-2" name="full_name" value="{{ current_user.full_name }}">
+        <label class="form-label">Email</label><input class="form-control mb-2" name="email" value="{{ current_user.email }}">
+        <label class="form-label">Телефон</label><input class="form-control mb-2" name="phone" value="{{ current_user.phone }}">
+        <label class="form-label">Дата рождения</label><input class="form-control mb-3" type="date" name="birth_date" value="{{ current_user.birth_date }}">
+        <button class="btn btn-primary">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card p-4">
+      <h1 class="h4">Мои бронирования</h1>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr><th>Код</th><th>Рейс</th><th>Пассажир</th><th>Категория</th><th>Цена</th><th>Статус</th><th></th></tr>
+          {% for b in bookings %}
+          <tr>
+            <td>{{ b.booking_code }}</td><td>{{ b.flight_number }}</td><td>{{ b.passenger_name }}</td><td>{{ labels[b.passenger_category] }}</td><td>{{ b.final_price }} ₽</td><td>{{ b.status }}</td>
+            <td>{% if b.status == 'active' and b.cancel_allowed == 1 %}<form method="post" action="{{ url_for('cancel', booking_id=b.id) }}"><button class="btn btn-sm btn-outline-danger">Отменить</button></form>{% endif %}</td>
+          </tr>
+          {% else %}<tr><td colspan="7">Бронирований пока нет.</td></tr>{% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

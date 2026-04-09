@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4">
+  <h1 class="h4">Результаты поиска</h1>
+  <p>Маршрут: {{ q.origin or 'любой' }} → {{ q.destination or 'любой' }}, дата: {{ q.departure_date or 'любая' }}</p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr><th>Рейс</th><th>Откуда</th><th>Куда</th><th>Дата</th><th>Время</th><th>Места</th><th>Цена</th><th></th></tr>
+      {% for f in flights %}
+      <tr><td>{{ f.flight_number }}</td><td>{{ f.origin }}</td><td>{{ f.destination }}</td><td>{{ f.departure_date }}</td><td>{{ f.departure_time }} - {{ f.arrival_time }}</td><td>{{ f.free_seats }}</td><td>{{ f.base_price }} ₽</td><td><a class="btn btn-sm btn-primary" href="{{ url_for('flight', flight_id=f.id) }}">Подробнее</a></td></tr>
+      {% else %}<tr><td colspan="8">Ничего не найдено.</td></tr>{% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

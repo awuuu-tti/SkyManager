@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h4 mb-0">Панель сотрудника</h1><a class="btn btn-primary" href="{{ url_for('employee_flight') }}">Добавить рейс</a></div>
+<div class="card p-4">
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm">
+      <tr><th>Рейс</th><th>Маршрут</th><th>Дата</th><th>Цена</th><th>Статус</th><th>Пассажиры</th><th>Действия</th></tr>
+      {% for f in flights %}
+      <tr>
+        <td>{{ f.flight_number }}</td><td>{{ f.origin }} → {{ f.destination }}</td><td>{{ f.departure_date }}</td><td>{{ f.base_price }} ₽</td>
+        <td>
+          <form method="post" action="{{ url_for('change_status', flight_id=f.id) }}" class="d-flex gap-2">
+            <select class="form-select form-select-sm" name="status">{% for s in statuses %}<option {% if s == f.status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+            <button class="btn btn-sm btn-outline-primary">OK</button>
+          </form>
+        </td>
+        <td><a class="btn btn-sm btn-outline-secondary" href="{{ url_for('passengers', flight_id=f.id) }}">Список</a></td>
+        <td class="d-flex gap-1 flex-wrap"><a class="btn btn-sm btn-outline-primary" href="{{ url_for('employee_flight', id=f.id) }}">Изменить</a><form method="post" action="{{ url_for('delete_flight', flight_id=f.id) }}"><button class="btn btn-sm btn-outline-danger">Удалить</button></form></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+Админ
+Логин: admin@skymanager.local
+Пароль: Admin123!
+
+Сотрудник
+Логин: employee@skymanager.local
+Пароль: Employee123!
+
+Клиент
+Логин: client@skymanager.local
+Пароль: Client123!

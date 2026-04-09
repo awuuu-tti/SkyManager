@@ -1,0 +1,9 @@
+body { background: #f5f6f8; }
+.card { border: 0; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.form-box { max-width: 520px; margin: 0 auto; }
+.form-wide { max-width: 900px; margin: 0 auto; }
+.admin-table td, .admin-table th { vertical-align: top; }
+.actions-cell { min-width: 210px; }
+.action-form { display: block; }
+.password-form { display: flex; flex-direction: column; gap: .4rem; }
+.admin-table td { word-break: break-word; }

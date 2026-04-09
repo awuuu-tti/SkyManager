@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card p-4 mb-4">
+      <h1 class="h5">Добавить сотрудника</h1>
+      <form method="post">
+        <input type="hidden" name="action" value="create_staff">
+        <label class="form-label">ФИО</label><input class="form-control mb-2" name="full_name">
+        <label class="form-label">Email</label><input class="form-control mb-2" name="email">
+        <label class="form-label">Телефон</label><input class="form-control mb-2" name="phone">
+        <label class="form-label">Дата рождения</label><input class="form-control mb-2" type="date" name="birth_date">
+        <label class="form-label">Роль</label><select class="form-select mb-2" name="role"><option value="employee">employee</option><option value="admin">admin</option></select>
+        <label class="form-label">Пароль</label><input class="form-control mb-3" name="password">
+        <button class="btn btn-primary">Создать</button>
+      </form>
+    </div>
+    <div class="card p-4"><a class="btn btn-outline-primary" href="{{ url_for('backup') }}">Скачать резервную копию Excel</a></div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card p-4 mb-4">
+      <h2 class="h5">Пользователи</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm admin-table align-middle">
+          <tr><th>Имя</th><th>Email</th><th>Роль</th><th>Действия</th></tr>
+          {% for u in users %}
+          <tr>
+            <td>{{ u.full_name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.role }}</td>
+            <td class="actions-cell">
+              {% if u.role != 'admin' or users|selectattr('role','equalto','admin')|list|length > 1 %}
+              <form method="post" class="action-form mb-2">
+                <input type="hidden" name="action" value="delete_user">
+                <input type="hidden" name="user_id" value="{{ u.id }}">
+                <button class="btn btn-sm btn-outline-danger">Отключить</button>
+              </form>
+              {% endif %}
+              <form method="post" class="action-form password-form">
+                <input type="hidden" name="action" value="reset_password">
+                <input type="hidden" name="user_id" value="{{ u.id }}">
+                <input class="form-control form-control-sm" name="new_password" placeholder="Новый пароль">
+                <button class="btn btn-sm btn-outline-secondary">Сбросить</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="card p-4">
+      <h2 class="h5">Последние логи</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm"><tr><th>Время</th><th>Пользователь</th><th>Действие</th><th>Подробности</th></tr>{% for l in logs %}<tr><td>{{ l.event_time }}</td><td>{{ l.actor_email }}</td><td>{{ l.action }}</td><td>{{ l.details }}</td></tr>{% endfor %}</table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

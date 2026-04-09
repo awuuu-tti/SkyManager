@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 form-wide">
+  <h1 class="h4">{{ 'Редактирование рейса' if flight else 'Новый рейс' }}</h1>
+  <form method="post" class="row g-2">
+    {% if flight %}<input type="hidden" name="id" value="{{ flight.id }}">{% endif %}
+    <div class="col-md-4"><label class="form-label">Номер рейса</label><input class="form-control" name="flight_number" value="{{ flight.flight_number if flight else '' }}"></div>
+    <div class="col-md-4"><label class="form-label">Город вылета</label><input class="form-control" name="origin" value="{{ flight.origin if flight else '' }}"></div>
+    <div class="col-md-4"><label class="form-label">Город прилета</label><input class="form-control" name="destination" value="{{ flight.destination if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Дата</label><input class="form-control" type="date" name="departure_date" value="{{ flight.departure_date if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Вылет</label><input class="form-control" name="departure_time" value="{{ flight.departure_time if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Прилет</label><input class="form-control" name="arrival_time" value="{{ flight.arrival_time if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Самолет</label><input class="form-control" name="plane_model" value="{{ flight.plane_model if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Всего мест</label><input class="form-control" type="number" name="total_seats" value="{{ flight.total_seats if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Свободно мест</label><input class="form-control" type="number" name="free_seats" value="{{ flight.free_seats if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Цена</label><input class="form-control" type="number" name="base_price" value="{{ flight.base_price if flight else '' }}"></div>
+    <div class="col-md-3"><label class="form-label">Статус</label><select class="form-select" name="status">{% for s in statuses %}<option {% if flight and s == flight.status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></div>
+    <div class="col-md-3"><label class="form-label">Тариф</label><select class="form-select" name="fare_type">{% for s in ['Promo','Standard','Flexible'] %}<option {% if flight and s == flight.fare_type %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></div>
+    <div class="col-12"><button class="btn btn-primary">Сохранить</button></div>
+  </form>
+</div>
+{% endblock %}

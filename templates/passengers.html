@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4">
+  <h1 class="h4">Пассажиры рейса {{ flight.flight_number }}</h1>
+  <p>Эту таблицу сотрудник использует для оповещения при задержке или отмене.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tr><th>Пассажир</th><th>Категория</th><th>Телефон</th><th>Email</th><th>Код брони</th><th>Статус</th></tr>
+      {% for b in bookings %}<tr><td>{{ b.passenger_name }}</td><td>{{ labels[b.passenger_category] }}</td><td>{{ b.user_phone or '—' }}</td><td>{{ b.user_email or '—' }}</td><td>{{ b.booking_code }}</td><td>{{ b.status }}</td></tr>{% else %}<tr><td colspan="6">Пассажиров нет.</td></tr>{% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 mb-4">
+  <h1 class="h3">SkyManager</h1>
+  <p class="mb-3 text-muted">Поиск рейсов и бронирование авиабилетов.</p>
+  <form action="{{ url_for('search') }}" class="row g-2">
+    <div class="col-md-4"><input class="form-control" name="origin" list="cities" placeholder="Город вылета"></div>
+    <div class="col-md-4"><input class="form-control" name="destination" list="cities" placeholder="Город прилета"></div>
+    <div class="col-md-2"><input class="form-control" type="date" name="departure_date"></div>
+    <div class="col-md-2"><button class="btn btn-primary w-100">Найти</button></div>
+  </form>
+  <datalist id="cities">{% for city in cities %}<option value="{{ city }}">{% endfor %}</datalist>
+</div>
+<div class="card p-4">
+  <h2 class="h5">Ближайшие рейсы</h2>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <tr><th>Рейс</th><th>Маршрут</th><th>Дата</th><th>Статус</th><th>Цена</th><th></th></tr>
+      {% for f in flights %}
+      <tr><td>{{ f.flight_number }}</td><td>{{ f.origin }} → {{ f.destination }}</td><td>{{ f.departure_date }}</td><td>{{ f.status }}</td><td>{{ f.base_price }} ₽</td><td><a class="btn btn-sm btn-primary" href="{{ url_for('flight', flight_id=f.id) }}">Открыть</a></td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}
