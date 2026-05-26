@@ -21,7 +21,7 @@ jobs:
 
       - name: Установка зависимостей
         run: |
-          pip install flask openpyxl
+          pip install flask openpyxl filelock
 
       - name: Проверка сборки проекта
         run: |
