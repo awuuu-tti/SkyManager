@@ -1,5 +1,11 @@
 # SkyManager
 
+![Tests](https://github.com/awuuu-tti/SkyManager/actions/workflows/test.yml/badge.svg)
+
+![Build](https://github.com/awuuu-tti/SkyManager/actions/workflows/build.yml/badge.svg)
+
+![Deploy](https://github.com/awuuu-tti/SkyManager/actions/workflows/deploy.yml/badge.svg)
+
 ## Описание
 Сайт разработан на Python Flask.  
 Данные хранятся в Excel-файле.  
@@ -78,3 +84,19 @@ skymanager/
     ├── reports.html
     └── search.html
 ```
+## CI/CD Automation
+
+В проекте настроена автоматизация с помощью GitHub Actions.
+
+### Настроенные workflow
+
+- Tests — автоматический запуск тестов pytest
+- Build — автоматическая проверка сборки проекта
+- Deploy — автоматический запуск deploy workflow
+
+### Используемые технологии
+
+- GitHub Actions
+- pytest
+- Python 3.11
+- Ubuntu Runner
